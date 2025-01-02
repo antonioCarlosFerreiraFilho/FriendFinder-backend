@@ -258,13 +258,16 @@ const getUser = async (req, res) => {
 
 //   All Users   //
 const allUsers = async (req, res) => {
-  if ((await User.find({})).length > 5) {
+  if ((await User.find({})).length > 7) {
     const FristSeven = await User.find({})
       .sort([["createdAt", -1]])
       .limit(7)
       .exec();
 
     return res.status(200).json(FristSeven);
+  }else {
+
+    return res.status(422).json({ errors: ["Erro ao Listar."] });
   }
 };
 
